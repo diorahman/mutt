@@ -20,6 +20,7 @@ test('Nay!', async (t) => {
 
 test('Send', async (t) => {
     const mail = new Mutt({
+        from: 'The Odin <odin@hooq.tv>',
         to: [ 'dio@hooq.tv' ],
         subject: 'Subject 1',
         body: 'Body 1',

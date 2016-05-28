@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-disable one-var */
 /** @module Mutt*/
 
@@ -77,7 +75,9 @@ var Mutt = function () {
         key: 'send',
         value: function () {
             var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-                var args, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, to, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, cc, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, bcc, downloaded, _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, file, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, _step5$value, index, attachments, tmpFile, path, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, cleanup;
+                var keep = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+                var args, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, to, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, cc, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, bcc, downloaded, _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, file, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, attachment, tmpFile, path, result, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, cleanup;
 
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
@@ -87,7 +87,7 @@ var Mutt = function () {
 
                                 if (this.from) {
                                     args.push('-e');
-                                    args.push('my_hdr From:' + this.from);
+                                    args.push('my_hdr From: ' + this.from);
                                 }
 
                                 args.push('-e');
@@ -231,7 +231,7 @@ var Mutt = function () {
 
                             case 63:
                                 if (!(this.attachments.length > 0)) {
-                                    _context.next = 108;
+                                    _context.next = 109;
                                     break;
                                 }
 
@@ -297,16 +297,12 @@ var Mutt = function () {
                                 _didIteratorError5 = false;
                                 _iteratorError5 = undefined;
                                 _context.prev = 92;
-                                for (_iterator5 = this.attachments.entries()[Symbol.iterator](); !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                                    _step5$value = _slicedToArray(_step5.value, 2);
-                                    index = _step5$value[0];
-                                    attachments = _step5$value[1];
+                                for (_iterator5 = this.attachments[Symbol.iterator](); !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                                    attachment = _step5.value;
 
-                                    args.push(attachments);
-                                    if (this.attachments.length > 1 && index < this.attachments.length - 1) {
-                                        args.push('--');
-                                    }
+                                    args.push(attachment);
                                 }
+
                                 _context.next = 100;
                                 break;
 
@@ -341,75 +337,89 @@ var Mutt = function () {
                                 return _context.finish(100);
 
                             case 108:
-                                _context.next = 110;
-                                return (0, _utils.tmp)();
+                                args.push('--');
 
-                            case 110:
+                            case 109:
+                                _context.next = 111;
+                                return (0, _utils.tmp)({ keep: keep });
+
+                            case 111:
                                 tmpFile = _context.sent;
                                 path = tmpFile.path;
-                                _context.next = 114;
+                                _context.next = 115;
                                 return writeFileAsync(path, this.body);
 
-                            case 114:
+                            case 115:
                                 args.push('<');
                                 args.push(path);
-                                _context.next = 118;
+                                _context.next = 119;
                                 return (0, _utils.execute)(args);
 
-                            case 118:
+                            case 119:
+                                result = _context.sent;
+
+                                if (keep) {
+                                    _context.next = 140;
+                                    break;
+                                }
+
                                 _iteratorNormalCompletion6 = true;
                                 _didIteratorError6 = false;
                                 _iteratorError6 = undefined;
-                                _context.prev = 121;
-
+                                _context.prev = 124;
 
                                 for (_iterator6 = this.cleanups[Symbol.iterator](); !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                                     cleanup = _step6.value;
 
                                     cleanup();
                                 }
-                                _context.next = 129;
+                                _context.next = 132;
                                 break;
 
-                            case 125:
-                                _context.prev = 125;
-                                _context.t5 = _context['catch'](121);
+                            case 128:
+                                _context.prev = 128;
+                                _context.t5 = _context['catch'](124);
                                 _didIteratorError6 = true;
                                 _iteratorError6 = _context.t5;
 
-                            case 129:
-                                _context.prev = 129;
-                                _context.prev = 130;
+                            case 132:
+                                _context.prev = 132;
+                                _context.prev = 133;
 
                                 if (!_iteratorNormalCompletion6 && _iterator6.return) {
                                     _iterator6.return();
                                 }
 
-                            case 132:
-                                _context.prev = 132;
+                            case 135:
+                                _context.prev = 135;
 
                                 if (!_didIteratorError6) {
-                                    _context.next = 135;
+                                    _context.next = 138;
                                     break;
                                 }
 
                                 throw _iteratorError6;
 
-                            case 135:
+                            case 138:
+                                return _context.finish(135);
+
+                            case 139:
                                 return _context.finish(132);
 
-                            case 136:
-                                return _context.finish(129);
+                            case 140:
 
-                            case 137:
+                                result.args = args;
+                                return _context.abrupt('return', result);
+
+                            case 142:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[9, 13, 17, 25], [18,, 20, 24], [28, 32, 36, 44], [37,, 39, 43], [47, 51, 55, 63], [56,, 58, 62], [73, 77, 81, 89], [82,, 84, 88], [92, 96, 100, 108], [101,, 103, 107], [121, 125, 129, 137], [130,, 132, 136]]);
+                }, _callee, this, [[9, 13, 17, 25], [18,, 20, 24], [28, 32, 36, 44], [37,, 39, 43], [47, 51, 55, 63], [56,, 58, 62], [73, 77, 81, 89], [82,, 84, 88], [92, 96, 100, 108], [101,, 103, 107], [124, 128, 132, 140], [133,, 135, 139]]);
             }));
 
-            function send() {
+            function send(_x2) {
                 return ref.apply(this, arguments);
             }
 
