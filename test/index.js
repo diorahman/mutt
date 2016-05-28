@@ -1,3 +1,5 @@
+// In order to fetch the s3 as attachment, please
+// prepare all of the corresponding env variables.
 import test from 'ava';
 import { download } from '../lib/utils';
 import Mutt from '../lib';

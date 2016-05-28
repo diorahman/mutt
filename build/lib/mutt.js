@@ -45,6 +45,8 @@ var Mutt = function () {
         var bcc = _ref$bcc === undefined ? [] : _ref$bcc;
         var _ref$subject = _ref.subject;
         var subject = _ref$subject === undefined ? '' : _ref$subject;
+        var _ref$body = _ref.body;
+        var body = _ref$body === undefined ? '' : _ref$body;
         var _ref$content = _ref.content;
         var content = _ref$content === undefined ? '' : _ref$content;
         var _ref$contentType = _ref.contentType;
@@ -60,7 +62,7 @@ var Mutt = function () {
         this.cc = cc;
         this.bcc = bcc;
         this.subject = subject;
-        this.content = content;
+        this.content = content || body;
         this.contentType = contentType;
         this.attachments = Array.isArray(attachments) ? attachments : [attachments];
     }
