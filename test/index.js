@@ -37,7 +37,8 @@ test('Send HTML', async (t) => {
         from: 'The Odin HTML <odin@hooq.tv>',
         to: [ 'dio@hooq.tv' ],
         subject: 'Subject 2',
-        body: 'Body <bold>HAHAHAHA</bold>',
+        body: 'Body <bold>HAHAHAHA</bold><br /> HAHA',
+        contentType: 'text/html',
         attachments: [
             { key: 'subscription-renewals/adhoc-test.out', bucket: 'hooq-tests', ext: '.csv' },
             { link: 'https://c4.staticflickr.com/5/4146/5014496307_c72ef6f6c4.jpg' }
