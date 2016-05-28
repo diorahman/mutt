@@ -87,11 +87,11 @@ var Mutt = function () {
 
                                 if (this.from) {
                                     args.push('-e');
-                                    args.push('my_hdr From: ' + this.from);
+                                    args.push('"my_hdr From: ' + this.from + '"');
                                 }
 
                                 args.push('-e');
-                                args.push('set content_type=' + this.contentType);
+                                args.push('"set content_type=' + this.contentType + '"');
 
                                 args.push('-s');
                                 args.push('"' + this.subject + '"');
@@ -347,7 +347,7 @@ var Mutt = function () {
                                 tmpFile = _context.sent;
                                 path = tmpFile.path;
                                 _context.next = 115;
-                                return writeFileAsync(path, this.body);
+                                return writeFileAsync(path, this.content);
 
                             case 115:
                                 args.push('<');

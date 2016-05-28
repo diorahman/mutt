@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.download = exports.tmp = exports.execute = undefined;
 
+var _awsSdk = require('aws-sdk');
+
+var _awsSdk2 = _interopRequireDefault(_awsSdk);
+
 var _tmp = require('tmp');
 
 var _path = require('path');
@@ -17,13 +21,9 @@ var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _fs = require('fs');
-
 var _child_process = require('child_process');
 
-var _awsSdk = require('aws-sdk');
-
-var _awsSdk2 = _interopRequireDefault(_awsSdk);
+var _fs = require('fs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,7 +40,8 @@ var execute = function execute(args) {
     var file = arguments.length <= 1 || arguments[1] === undefined ? 'mutt' : arguments[1];
 
     return new _bluebird2.default(function (resolve, reject) {
-        (0, _child_process.execFile)(file, args, function (error, stdout, stderr) {
+        args.unshift(file);
+        (0, _child_process.exec)(args.join(' '), function (error, stdout, stderr) {
             if (error) {
                 return reject(error);
             }
