@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 const gulp = require('gulp'),
     path = require('path'),
     ava = require('gulp-ava'),
